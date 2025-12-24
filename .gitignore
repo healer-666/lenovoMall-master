@@ -1,0 +1,49 @@
+# ========== 后端忽略 ==========
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+target/
+bin/
+build/
+.mvn/
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+
+# ========== 前端忽略 ==========
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+
+# ========== 通用忽略 ==========
+.DS_Store
+Thumbs.db
+*.log
+logs/
+
+# 配置文件（敏感信息）
+application-dev.yml
+application-prod.yml
+*.properties
+*.key
+*.pem
+
+# 其他
+*.bak
+*.tmp
+*.temp
+EOF
