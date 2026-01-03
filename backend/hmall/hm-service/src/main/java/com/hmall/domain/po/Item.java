@@ -42,6 +42,10 @@ public class Item implements Serializable {
      * 价格（分）
      */
     private Integer price;
+    /**
+     * 折后价格,单位分
+    */
+    private Integer discountPrice;
 
     /**
      * 库存数量

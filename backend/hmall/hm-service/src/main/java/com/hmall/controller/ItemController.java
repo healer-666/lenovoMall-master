@@ -1,6 +1,7 @@
 package com.hmall.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hmall.common.domain.PageDTO;
 import com.hmall.common.domain.PageQuery;
@@ -8,6 +9,7 @@ import com.hmall.common.utils.BeanUtils;
 import com.hmall.domain.dto.ItemDTO;
 import com.hmall.domain.dto.OrderDetailDTO;
 import com.hmall.domain.po.Item;
+import com.hmall.domain.query.ItemPageQuery;
 import com.hmall.service.IItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,10 +28,18 @@ public class ItemController {
 
     @ApiOperation("分页查询商品")
     @GetMapping("/page")
-    public PageDTO<ItemDTO> queryItemByPage(PageQuery query) {
-        // 1.分页查询
-        Page<Item> result = itemService.page(query.toMpPage("update_time", false));
-        // 2.封装并返回
+    public PageDTO<ItemDTO> queryItemByPage(ItemPageQuery query) {
+        // 1.构建查询条件
+        LambdaQueryWrapper<Item> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(query.getKey() != null, Item::getName, query.getKey());
+        wrapper.eq(query.getCategory() != null, Item::getCategory, query.getCategory());
+        wrapper.eq(query.getBrand() != null, Item::getBrand, query.getBrand());
+        wrapper.ge(query.getMinPrice() != null, Item::getPrice, query.getMinPrice());
+        wrapper.le(query.getMaxPrice() != null, Item::getPrice, query.getMaxPrice());
+
+        // 2.分页查询
+        Page<Item> result = itemService.page(query.toMpPage("update_time", false), wrapper);
+        // 3.封装并返回
         return PageDTO.of(result, ItemDTO.class);
     }
 

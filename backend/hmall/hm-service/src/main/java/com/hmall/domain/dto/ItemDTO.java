@@ -13,6 +13,8 @@ public class ItemDTO {
     private String name;
     @ApiModelProperty("价格（分）")
     private Integer price;
+    @ApiModelProperty("折后价格（分）")
+    private Integer discountPrice;
     @ApiModelProperty("库存数量")
     private Integer stock;
     @ApiModelProperty("商品图片")
